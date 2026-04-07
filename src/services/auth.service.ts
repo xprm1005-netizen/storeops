@@ -74,8 +74,9 @@ export const authService = {
   },
 
   async loadCurrentUser(): Promise<User | null> {
-    const { data: { user: authUser } } = await supabase.auth.getUser();
-    if (!authUser) return null;
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.user) return null;
+    const authUser = session.user;
 
     const { data: membership, error } = await supabase.rpc('my_membership');
     if (error || !membership || membership.length === 0) {
