@@ -9,6 +9,7 @@ export const authService = {
     const { data, error } = await supabase.auth.signUp({
       email: params.email,
       password: params.password,
+      options: { emailRedirectTo: window.location.origin },
     });
     if (error) throw error;
     if (!data.user) throw new Error('가입에 실패했습니다');
@@ -41,6 +42,7 @@ export const authService = {
     const { data, error } = await supabase.auth.signUp({
       email: params.email,
       password: params.password,
+      options: { emailRedirectTo: window.location.origin },
     });
     if (error) throw error;
     if (!data.user) throw new Error('가입에 실패했습니다');

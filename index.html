@@ -8,17 +8,6 @@
   </head>
   <body class="bg-gray-50">
     <div id="root"></div>
-    <div id="debug-overlay" style="display:none;position:fixed;top:0;left:0;right:0;background:#fee2e2;color:#991b1b;padding:16px;font-family:monospace;font-size:13px;z-index:9999;white-space:pre-wrap;word-break:break-all;max-height:50vh;overflow:auto;"></div>
-    <script>
-      window.onerror = function(msg, src, line, col, err) {
-        var el = document.getElementById('debug-overlay');
-        if (el) { el.style.display = 'block'; el.textContent = 'JS Error: ' + msg + '\nFile: ' + src + '\nLine: ' + line + '\n' + (err && err.stack ? err.stack : ''); }
-      };
-      window.onunhandledrejection = function(e) {
-        var el = document.getElementById('debug-overlay');
-        if (el) { el.style.display = 'block'; el.textContent += '\nUnhandled Promise: ' + (e.reason && e.reason.message ? e.reason.message : e.reason) + '\n' + (e.reason && e.reason.stack ? e.reason.stack : ''); }
-      };
-    </script>
-    <script type="module" src="/src/main.tsx"></script>
+<script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
