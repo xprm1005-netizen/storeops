@@ -37,30 +37,17 @@ export default function App() {
   const setLoading = useAuthStore((s) => s.setLoading);
 
   useEffect(() => {
-    // Initial session load
-    (async () => {
+    const { data: sub } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      if (!session) {
+        setUser(null);
+        return;
+      }
+      setLoading(true);
       try {
         const u = await authService.loadCurrentUser();
         setUser(u);
       } catch {
         setUser(null);
-      }
-    })();
-
-    // Listen for auth changes
-    const { data: sub } = supabase.auth.onAuthStateChange(async (event) => {
-      if (event === 'SIGNED_OUT') {
-        setUser(null);
-        return;
-      }
-      if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
-        setLoading(true);
-        try {
-          const u = await authService.loadCurrentUser();
-          setUser(u);
-        } catch {
-          setUser(null);
-        }
       }
     });
 
